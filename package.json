@@ -1,0 +1,19 @@
+{
+  "name": "backend_with_javascript",
+  "version": "1.0.0",
+  "description": "backend with javaScript",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [
+    "backend",
+    "javascript"
+  ],
+  "author": "chanchal",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
