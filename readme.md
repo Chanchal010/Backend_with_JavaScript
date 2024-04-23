@@ -14,5 +14,7 @@ create folders
 config prettier
 
 
+for use dotenv enviourment we have to use exprimental version by adding on pakage.json/dev script ----   -r dotenv/config --experimental-json-modules
+
 
 
