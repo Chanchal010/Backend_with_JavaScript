@@ -3,6 +3,7 @@ import { User } from "../models/user.models.js"
 import { ApiError } from "../utils/ApiError.js"
 import { ApiResponce } from "../utils/ApiResponce.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js"
+// import bcrypt from "bcrypt"
 
 const registerUser = asyncHandler(async (req,res) => {
     // get user details from frontend
@@ -25,7 +26,7 @@ const registerUser = asyncHandler(async (req,res) => {
         throw new ApiError(401, "all details are required")
     }
 
-    const existedUser = User.findOne({
+    const existedUser = await User.findOne({
         $or:[
             { userName },
             { email }
@@ -36,23 +37,24 @@ const registerUser = asyncHandler(async (req,res) => {
         throw new ApiError(409, "User already existed")
     }
 
-    const avatarLocalFilepath = req.files?.avatar[0]?.path
-    const coverImageLocalFilepath = req.files?.coverImage[0]?.path
+    const avatarLocalFilepath = await req.files?.avatar[0]?.path
+    // const coverImageLocalFilepath = req.files?.coverImage[0]?.path
 
     if (!avatarLocalFilepath) {
         throw new ApiError(400, "avatar is required!!")
     }
 
     const avatar = await uploadOnCloudinary(avatarLocalFilepath)
-    const coverImage = await uploadOnCloudinary(coverImageLocalFilepath)
+    // const coverImage = await uploadOnCloudinary(coverImageLocalFilepath)
 
     if (!avatar) {
-        throw new ApiError(400, "avatar is required!!")
+        throw new ApiError(400, "avatar is required!!!!")
     }
+
 
     const user = await User.create({
         fullName,
-        userName: userName.toLowerCase,
+        userName: userName.toLowerCase(),
         avatar: avatar.url,
         coverImage: coverImage?.url || "",
         password,
@@ -60,7 +62,7 @@ const registerUser = asyncHandler(async (req,res) => {
     })
 
     const createdUser = await User.findById(user._id).select(
-        "-password -refreshToken"
+        "-password"
     )
 
     if (!createdUser) {

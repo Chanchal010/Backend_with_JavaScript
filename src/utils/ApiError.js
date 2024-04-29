@@ -7,10 +7,9 @@ class ApiError extends Error{
     ){
         super(message)
         this.statuscode = statuscode
-        // this.message = message
+        this.message = message
         this.errors = errors
-        this.stack = stack
-        // this.data = data
+        this.data = null
         this.success = false;
 
         if (stack) {
@@ -22,3 +21,29 @@ class ApiError extends Error{
 }
 
 export { ApiError }
+
+
+// class ApiError extends Error {
+//     constructor(
+//         statusCode,
+//         message= "Something went wrong",
+//         errors = [],
+//         stack = ""
+//     ){
+//         super(message)
+//         this.statusCode = statusCode
+//         this.data = null
+//         this.message = message
+//         this.success = false;
+//         this.errors = errors
+
+//         if (stack) {
+//             this.stack = stack
+//         } else{
+//             Error.captureStackTrace(this, this.constructor)
+//         }
+
+//     }
+// }
+
+// export { ApiError }
