@@ -5,11 +5,12 @@ class ApiError extends Error{
         errors = [],
         stack = ""
     ){
+        super(message)
         this.statuscode = statuscode
-        this.message = message
+        // this.message = message
         this.errors = errors
         this.stack = stack
-        this.data = data
+        // this.data = data
         this.success = false;
 
         if (stack) {
