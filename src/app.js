@@ -15,7 +15,6 @@ app.use(express.json(
     }
 ))
 
-app.use(express.static("public")) //for temporay files
 
 app.use(express.urlencoded(
     {
@@ -23,6 +22,7 @@ app.use(express.urlencoded(
         limit:"20kb"
     }
 ))
+app.use(express.static("public")) //for temporay files
 
 app.use(cookieParser())
 
