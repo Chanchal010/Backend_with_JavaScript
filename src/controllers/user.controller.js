@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/user.models.js"
 import { ApiError } from "../utils/ApiError.js"
 import { ApiResponce } from "../utils/ApiResponce.js"
-import { uploadOnCloudinary } from "../utils/cloudinary.js"
+// import { uploadOnCloudinary } from "../utils/cloudinary.js"
 // import bcrypt from "bcrypt"
 
 const generateAccessAndRefreshToken = async (userId) => {
@@ -30,11 +30,11 @@ const registerUser = asyncHandler(async (req, res) => {
 
     const { fullName, userName, email, password } = req.body
     console.log(fullName, userName, email, password);
+    
+    let emtyInfo = [fullName, userName, email, password].some((fields) => fields?.trim())
 
-    if (
-        [fullName, userName, email, password].some((fields) =>
-            fields?.trim() === "")
-    ) {
+    if (emtyInfo === "")
+     {
         throw new ApiError(401, "all details are required")
     }
 
@@ -142,7 +142,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     return res
     .status(200)
-    .cookie("accesToken", accessToken, options)
+    .cookie("accessToken", accessToken, options)
     .cookie("refreshToken", refreshToken, options)
     .json(
         new ApiResponce(
@@ -156,40 +156,40 @@ const loginUser = asyncHandler(async (req, res) => {
 
 })
 
-const logoutUser = asyncHandler(async(req, res) => {
-    await User.findByIdAndUpdate(
-        req.user._id,
-        {
-            $unset: {
-                refreshToken: 1 // this removes the field from document
-            }
-        },
-        {
-            new: true
-        }
-    )
+// const logoutUser = asyncHandler(async(req, res) => {
+//     await User.findByIdAndUpdate(
+//         req.user._id,
+//         {
+//             $unset: {
+//                 refreshToken: 1 // this removes the field from document
+//             }
+//         },
+//         {
+//             new: true
+//         }
+//     )
 
-    const options = {
-        httpOnly: true,
-        secure: true
-    }
+//     const options = {
+//         httpOnly: true,
+//         secure: true
+//     }
 
-    return res
-    .status(200)
-    .clearCookie("accessToken", options)
-    .clearCookie("refreshToken", options)
-    .json(
-        new ApiResponce(
-            200,
-            {},
-            "User logged Out"
-        )
-    )
-})
+//     return res
+//     .status(200)
+//     .clearCookie("accessToken", options)
+//     .clearCookie("refreshToken", options)
+//     .json(
+//         new ApiResponce(
+//             200,
+//             {},
+//             "User logged Out"
+//         )
+//     )
+// })
 
 
 export {
     registerUser,
     loginUser,
-    logoutUser
+    // logoutUser
 }
