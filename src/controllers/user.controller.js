@@ -3,7 +3,7 @@ import { User } from "../models/user.models.js"
 import { ApiError } from "../utils/ApiError.js"
 import { ApiResponce } from "../utils/ApiResponce.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js"
-// import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 
 const generateAccessAndRefreshToken = async (userId) => {
     const user = await User.findById(userId)
@@ -187,10 +187,64 @@ const logoutUser = asyncHandler(async(req, res) => {
         )
     )
 })
+const refreshAccessToken = asyncHandler(async (rq, res) => {
+    // req.cokkies --> refresh token
+    // validate the token
+    // verify the token with secret token
+    // find user using token
+    // validate user 
+    // check user token === cokkies token
+    // send res
+
+    const incomingRefreshToken = req.cookies?.refreshToken || req.body.refreshToken
+    
+    if (!incomingRefreshToken) {
+        throw new ApiError(401, "Unauthorised Request")
+    }
+
+    try {
+        const decodedToken = jwt.verify(
+            incomingRefreshToken,
+            process.env.REFRESH_TOKEN_SECRET
+        )
+    
+        const user = await User.findById(decodedToken?._id)
+    
+        if (!user) {
+            throw new ApiError(401, "Invalid Refresh Token")
+        }
+    
+        if (incomingRefreshToken !== user?.refreshToken) {
+            throw new ApiError(401, "refresh token is expired or used")
+        }
+    
+        const {accessToken, newRefreshToken} = await generateAccessAndRefreshToken(user._id)
+    
+        const options = {
+            httpOnly:true,
+            secure:true
+        }
+    
+        return res
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", newRefreshToken, options)
+        .json(
+            new ApiResponce(
+                200,
+                {accessToken, refreshToken:newRefreshToken},
+                "Access Token refreshed succesfully"
+            )
+        )
+    } catch (error) {
+        throw new ApiError(400, error?.message || "Invalid refreshed Token!!")
+    }
+})
 
 
 export {
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    refreshAccessToken
 }
