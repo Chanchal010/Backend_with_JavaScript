@@ -272,9 +272,9 @@ E-mail - [chanchalbag112@gmail.com](chanchalbag112@gmail.com)
 
 LinkedIn - [https://www.linkedin.com/in/chanchal-bag-010c](https://www.linkedin.com/in/chanchal-bag-010c)
 
-Project Link - [https://github.com/Chanchal010/mern-auth](https://github.com/Chanchal010/mern-auth)
+Project Link - [https://github.com/Chanchal010/authentication-Backend-API/](https://github.com/Chanchal010/authentication-Backend-API/)
 
-visit App - [Auth App](https://mern-authentication-qk7b.onrender.com)
+TRY IN - Any testing software , one of the industry grade is [Postman](https://www.postman.com/), visit and test all routes and also use in your frontend applications.
 
 ## License
 
