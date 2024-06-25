@@ -1,5 +1,4 @@
 
-```
 # Authentication Backend API
 
 A backend API for user authentication built with Node.js, Express, and MongoDB.
@@ -265,4 +264,3 @@ authentication-Backend-API
 ## License
 
 This project is licensed under the MIT License.
-```
