@@ -61,14 +61,18 @@ Ensure you have the following installed on your development machine:
 # Auth Routes
 Register a new user :
 POST /api/auth/register
+
+
 Login a user:
 POST /api/auth/login
+
+
 # User Routes
 Get current user details (Protected)
 GET /api/users/me
 ### User Registration
 
-- **URL:** `/api/v1/users/register`
+- **URL:** `https://tube-video.onrender.com/api/v1/users/register`
 - **Method:** `POST`
 - **Body:**
 
@@ -120,7 +124,7 @@ GET /api/users/me
 
     ```json
     {
-      
+      //empty
     }
     ```
 
@@ -159,7 +163,7 @@ GET /api/users/me
 
     ```json
     {
-      
+      //empty
     }
     ```
 
@@ -231,7 +235,7 @@ GET /api/users/me
 
 ## Project Structure
 
-```plaintext
+```
 authentication-Backend-API
 │──public/
 │──src/
@@ -251,7 +255,7 @@ authentication-Backend-API
 ├── package-lock.json
 ├── package.json
 └── readme.md
-
+```
 
 ## Contributing
 
@@ -261,6 +265,18 @@ authentication-Backend-API
 4. Push to the branch (`git push origin feature/your-feature-name`)
 5. Create a new Pull Request
 
+## Contact
+Chanchal Bag - [Chanchal010](https://github.com/Chanchal010)
+
+E-mail - [chanchalbag112@gmail.com](chanchalbag112@gmail.com)
+
+LinkedIn - [https://www.linkedin.com/in/chanchal-bag-010c](https://www.linkedin.com/in/chanchal-bag-010c)
+
+Project Link - [https://github.com/Chanchal010/mern-auth](https://github.com/Chanchal010/mern-auth)
+
+visit App - [Auth App](https://mern-authentication-qk7b.onrender.com)
+
 ## License
 
 This project is licensed under the MIT License.
+---
